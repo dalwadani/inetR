@@ -12,8 +12,8 @@ wc <- reshape(clients,
               timevar = "name",
               idvar = c("file","module"),
               direction = "wide")
-
-c0 <- clients[ grepl("Clients\\[0\\]",ignore.case = TRUE,clients$module),]
+names(wc)
+c0 <- wc[ grepl("Clients\\[0\\]",ignore.case = TRUE,wc$module),]
 
 
 routers  <- droplevels(routers)
@@ -28,7 +28,7 @@ levels(c0$name)
 nrow(c0[grepl("udpApp",c0$module),])
 nrow(c0)
 c0[100,]
-
+head(c0)
 
 
 
