@@ -1,4 +1,4 @@
 inetR
 =====
 
-manipulation inet results using R
+manipulation OMNeT++ inet results using R.
