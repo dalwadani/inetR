@@ -38,47 +38,27 @@ igmp_stats$file<-NULL
 nrow(igmp_stats)
 out <- aggregate(igmp_stats$numGeneralQueriesRecv,by=list(igmp_stats$run, igmp_stats$module),FUN = mean,na.rm = TRUE)
 write.table(igmp_stats,file = "igmp.dat",sep = "\t")
+igmp_stats <- read.table(file = "igmp.dat",sep = "\t",header = TRUE)
+igmp_stats$X <- NULL
+igmp_stats$module <-  NULL
+igmp_stats$Scenario <-  NULL
+str(igmp_stats)
+head(igmp_stats)
+igmp_stats[,"Group.1"]
+igmp_stats <- aggregate(igmp_stats,by = list( igmp_stats$run) ,FUN = sum,na.rm = TRUE)
+nrow(igmp_stats)
 
 
-out  <- reshape(igmp_stats,
-              timevar = c("Scenario","module"),
-              idvar = "run",
-              direction = "wide")
-
-out <- data.frame(out)
-
-names(out) <- c("run" , "ALM", "Multicast")
-out <- out[order(out$run),]
-out
-str(out )
-head(csent)
-nrow(csen)
-routers  <- droplevels(routers)
-levels(routers$module)
-clients  <- droplevels(clients)
-levels(clients$module)
-
-c0 <- droplevels(c0)
-levels(c0$module)
-levels(c0$name)
-
-nrow(c0[grepl("udpApp",c0$module),])
-nrow(c0)
-c0[100,]
-head(c0)
+par(pch=22, col="red") # plotting symbol and color
+par(mfrow=c(2,4)) # all plots on one page
 
 
+      heading = "IGMP States"
+        plot(igmp_stats$Group.1, igmp_stats$numQueriesRecv, type="n", main=heading)
+lines(igmp_stats$Group.1 , igmp_stats$numReportsRecv, type="o")
 
 
-
-
-
-
-
-
-
-
-
+igmp_stats[,"numReportsRecv"]
 
 
 
